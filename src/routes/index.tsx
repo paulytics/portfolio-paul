@@ -53,7 +53,7 @@ interface MetricItem {
 
 interface ProjectItem {
   no: string;
-  category: "ai" | "bi" | "sql";
+  category: "ai" | "bi" | "sql" | "product";
   badge: string;
   sector: string;
   title: string;
@@ -258,6 +258,64 @@ const projects: ProjectItem[] = [
     ],
     tags: ["Python", "Pandas", "Matplotlib"],
     lead: "Python",
+    isFlagship: false,
+  },
+  {
+    no: "08",
+    category: "product",
+    badge: "AI-Powered Platform",
+    sector: "EdTech · AI Products",
+    title: "CertifAI — AI Certificate Verification Platform",
+    org: "Dataleum",
+    intro:
+      "Live AI-powered platform enabling automated certificate generation, distribution, and verification for training organizations and learners.",
+    metrics: [
+      { label: "Type", value: "Live Product" },
+      { label: "Domain", value: "EdTech / AI" },
+    ],
+    image: "/projects/certliai.webp",
+    domainUrl: "certliai.dataleum.com",
+    bullets: [
+      "Full product development from concept through design, build, and launch",
+      "AI-driven certificate generation and anti-fraud verification at scale",
+      "Serving Dataleum's learner community with real-time credential management",
+    ],
+    tags: ["Product Development", "AI", "EdTech", "SaaS"],
+    lead: "Product Development",
+    link: "https://certliai.dataleum.com/",
+    links: [{ label: "View Live Product", url: "https://certliai.dataleum.com/", primary: true }],
+    isFlagship: false,
+  },
+  {
+    no: "09",
+    category: "bi",
+    badge: "Tableau · Data Visualization",
+    sector: "Public Data & Development",
+    title: "Global Development at a Glance",
+    org: "Tableau Public",
+    intro:
+      "Interactive Tableau dashboard visualizing global development indicators — GDP, education, health, and social progress — across countries and time periods.",
+    metrics: [
+      { label: "Tool", value: "Tableau" },
+      { label: "Scope", value: "Global Dataset" },
+    ],
+    image: "/projects/tableau-global.webp",
+    domainUrl: "public.tableau.com",
+    bullets: [
+      "Multi-KPI development index explorer with country and year filtering",
+      "Cross-dimensional storytelling linking economic, health, and social outcomes",
+      "Published on Tableau Public for open access and sharing",
+    ],
+    tags: ["Tableau", "Data Visualization", "Public Data", "Storytelling"],
+    lead: "Tableau",
+    link: "https://public.tableau.com/app/profile/paul.femi.adejobi/viz/GlobalDevelopmentataGlance/GlobalDevelopmentataGlance?publish=yes",
+    links: [
+      {
+        label: "View Tableau Dashboard",
+        url: "https://public.tableau.com/app/profile/paul.femi.adejobi/viz/GlobalDevelopmentataGlance/GlobalDevelopmentataGlance?publish=yes",
+        primary: true,
+      },
+    ],
     isFlagship: false,
   },
 ];
@@ -521,6 +579,11 @@ function Index() {
       id: "sql",
       label: "SQL & Telemetry",
       count: projects.filter((p) => p.category === "sql").length,
+    },
+    {
+      id: "product",
+      label: "Product & Platforms",
+      count: projects.filter((p) => p.category === "product").length,
     },
   ];
 
@@ -1066,7 +1129,7 @@ function Index() {
                     Connecting business objectives with user needs and technical execution.
                   </p>
                   <p className="font-sans text-[13px] text-paper/90 border-t border-white/10 pt-4 mt-auto">
-                    Requirements Gathering · PRDs · User Research · Roadmapping · Agile
+                    Product Development · Requirements Gathering · PRDs · User Research · Roadmapping · Agile
                   </p>
                 </SpotlightCard>
               </StaggerItem>
