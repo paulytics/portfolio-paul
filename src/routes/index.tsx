@@ -263,12 +263,12 @@ const projects: ProjectItem[] = [
   {
     no: "08",
     category: "product",
-    badge: "AI-Powered Platform",
+    badge: "AI Exam Simulation Engine",
     sector: "EdTech · AI Products",
-    title: "CertifAI — AI Certificate Verification Platform",
+    title: "CertliAI — AI-Powered Certification Exam Platform",
     org: "Dataleum",
     intro:
-      "Live AI-powered platform enabling automated certificate generation, distribution, and verification for training organizations and learners.",
+      "Full-length, timed mock exams that mirror real certification testing. Built with auto-save, proctoring, and instant diagnostics — all in one platform.",
     metrics: [
       { label: "Type", value: "Live Product" },
       { label: "Domain", value: "EdTech / AI" },
@@ -276,9 +276,9 @@ const projects: ProjectItem[] = [
     image: "/projects/certliai.webp",
     domainUrl: "certliai.dataleum.com",
     bullets: [
-      "Full product development from concept through design, build, and launch",
-      "AI-driven certificate generation and anti-fraud verification at scale",
-      "Serving Dataleum's learner community with real-time credential management",
+      "Exam simulation engine with full-length timed mock exams and real test mirroring",
+      "Auto-save, proctoring, and instant diagnostic feedback built into the platform",
+      "Built and shipped end-to-end as a live product under Dataleum",
     ],
     tags: ["Product Development", "AI", "EdTech", "SaaS"],
     lead: "Product Development",
