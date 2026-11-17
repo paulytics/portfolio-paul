@@ -13,7 +13,7 @@ const greetings = [
   "안녕하세요",
   "Bawo ni",
   "Sannu",
-  "Hello"
+  "Hello",
 ];
 
 interface PreloaderProps {

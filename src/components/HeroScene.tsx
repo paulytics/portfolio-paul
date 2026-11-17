@@ -22,8 +22,7 @@ function Particles({ count = 120 }: { count?: number }) {
 
   useFrame((_state, delta) => {
     if (!mesh.current) return;
-    const posArr = mesh.current.geometry.attributes.position
-      .array as Float32Array;
+    const posArr = mesh.current.geometry.attributes.position.array as Float32Array;
     for (let i = 0; i < count; i++) {
       posArr[i * 3 + 1] += speeds[i] * delta;
       // Reset when particle drifts too high
@@ -35,10 +34,8 @@ function Particles({ count = 120 }: { count?: number }) {
     mesh.current.geometry.attributes.position.needsUpdate = true;
 
     // Subtle mouse parallax
-    mesh.current.rotation.y +=
-      (mouse.current.x * 0.05 - mesh.current.rotation.y) * 0.02;
-    mesh.current.rotation.x +=
-      (mouse.current.y * 0.03 - mesh.current.rotation.x) * 0.02;
+    mesh.current.rotation.y += (mouse.current.x * 0.05 - mesh.current.rotation.y) * 0.02;
+    mesh.current.rotation.x += (mouse.current.y * 0.03 - mesh.current.rotation.x) * 0.02;
   });
 
   return (
@@ -56,12 +53,7 @@ function Particles({ count = 120 }: { count?: number }) {
           array={positions}
           itemSize={3}
         />
-        <bufferAttribute
-          attach="attributes-size"
-          count={count}
-          array={sizes}
-          itemSize={1}
-        />
+        <bufferAttribute attach="attributes-size" count={count} array={sizes} itemSize={1} />
       </bufferGeometry>
       <pointsMaterial
         size={0.035}
@@ -116,10 +108,7 @@ function SecondRing() {
 
 export default function HeroScene() {
   return (
-    <div
-      className="pointer-events-none absolute inset-0"
-      style={{ zIndex: 1 }}
-    >
+    <div className="pointer-events-none absolute inset-0" style={{ zIndex: 1 }}>
       <Canvas
         camera={{ position: [0, 0, 5], fov: 45 }}
         dpr={[1, 1.5]}

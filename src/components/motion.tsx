@@ -87,11 +87,7 @@ interface StaggerListProps {
   once?: boolean;
 }
 
-export function StaggerList({
-  children,
-  className,
-  once = true,
-}: StaggerListProps) {
+export function StaggerList({ children, className, once = true }: StaggerListProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once, amount: 0.15 });
 
@@ -108,13 +104,7 @@ export function StaggerList({
   );
 }
 
-export function StaggerItem({
-  children,
-  className,
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
+export function StaggerItem({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <motion.div variants={itemVariants} className={className}>
       {children}
@@ -166,13 +156,7 @@ interface MagneticLinkProps {
   rel?: string;
 }
 
-export function MagneticLink({
-  children,
-  href,
-  className,
-  target,
-  rel,
-}: MagneticLinkProps) {
+export function MagneticLink({ children, href, className, target, rel }: MagneticLinkProps) {
   const ref = useRef<HTMLAnchorElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);

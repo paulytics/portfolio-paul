@@ -1,8 +1,27 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import HeroScene from "../components/HeroScene";
-import { FadeIn, StaggerList, StaggerItem, AnimatedCounter, MagneticLink, motion } from "../components/motion";
+import {
+  FadeIn,
+  StaggerList,
+  StaggerItem,
+  AnimatedCounter,
+  MagneticLink,
+  motion,
+} from "../components/motion";
 import { SpotlightCard } from "../components/SpotlightCard";
 import { TrackRecord } from "../components/TrackRecord";
+import {
+  ArrowUpRight,
+  Bot,
+  BarChart3,
+  Database,
+  Sparkles,
+  Lock,
+  Layers,
+  FileText,
+  Check,
+} from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -11,7 +30,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Data, AI and technology consulting portfolio: Power BI, SQL, Python and Excel projects by Paul Femi-Adejobi, Lagos, Nigeria.",
+          "Data, AI and technology consulting portfolio: Power BI, SQL, Python, and AI automation projects by Paul Femi-Adejobi, Lagos, Nigeria.",
       },
       { property: "og:title", content: "Paul Femi-Adejobi — Tech Consultant (Data & AI)" },
       {
@@ -26,67 +45,220 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const projects = [
+interface MetricItem {
+  label: string;
+  value: string;
+  desc?: string;
+}
+
+interface ProjectItem {
+  no: string;
+  category: "ai" | "bi" | "sql";
+  badge: string;
+  sector: string;
+  title: string;
+  org: string;
+  intro: string;
+  metrics: MetricItem[];
+  image?: string;
+  domainUrl?: string;
+  bullets: string[];
+  tags: string[];
+  lead: string;
+  link?: string;
+  links?: { label: string; url: string; primary?: boolean }[];
+  isFlagship?: boolean;
+}
+
+const projects: ProjectItem[] = [
   {
     no: "01",
+    category: "ai",
+    badge: "Production AI Workflow",
+    sector: "AI & Automation",
+    title: "Autonomous AI Invoice & Receipt Pipeline",
+    org: "Production System",
+    intro:
+      "Enterprise-grade document automation system combining n8n and Google Gemini to autonomously ingest invoices, extract structured line items, verify accounting mathematics, detect duplicates, and route edge cases to a human-in-the-loop review queue.",
+    metrics: [
+      { label: "Extraction Accuracy", value: "99.2%", desc: "Strict JSON schema enforcement" },
+      { label: "Confidence Gate", value: "0–100", desc: "Multi-factor audit scoring" },
+      { label: "Test Fixtures", value: "9 / 9", desc: "Automated end-to-end tests" },
+      { label: "AI Containment", value: "Zero-Touch", desc: "Direct Google Sheets filing" },
+    ],
+    image: "/projects/invoice-pipeline.webp",
+    domainUrl: "paulytics.github.io/invoice-pipeline",
+    bullets: [
+      "Multimodal OCR and data extraction with Gemini Flash using structured JSON schema",
+      "Deterministic verification for line items, subtotals, VAT/tax, and accounting totals",
+      "Automated exception handling in Google Sheets with real-time Telegram escalation",
+    ],
+    tags: ["n8n", "Gemini AI", "Workflow Automation", "JavaScript", "Google Workspace"],
+    lead: "n8n",
+    link: "https://paulytics.github.io/invoice-pipeline",
+    links: [
+      {
+        label: "Explore Live Project",
+        url: "https://paulytics.github.io/invoice-pipeline",
+        primary: true,
+      },
+      { label: "GitHub Source Code", url: "https://github.com/paulytics/invoice-pipeline" },
+    ],
+    isFlagship: true,
+  },
+  {
+    no: "02",
+    category: "bi",
+    badge: "Executive BI & Economics",
+    sector: "Operations & AI Economics",
+    title: "Customer Support AI Economics & Operations",
+    org: "Support Operations",
+    intro:
+      "Interactive 3-page Power BI executive intelligence dashboard analyzing 12,000 support tickets across AI containment, human handoffs, unit economics, CSAT, and SLA compliance to isolate failure leaks and optimize routing playbooks.",
+    metrics: [],
+    image: "/projects/powerbi-support.webp",
+    domainUrl: "app.powerbi.com/support-economics",
+    bullets: [
+      "Executive dashboard modeling AI containment, CSAT scores, and queue response times",
+      "Operational unit economics comparing automated deflection vs human escalation costs",
+      "Strategic routing playbooks designed to minimize SLA breaches and customer churn",
+    ],
+    tags: ["Power BI", "DAX", "Data Modeling", "AI Economics", "Operations Analytics"],
+    lead: "Power BI",
+    link: "https://app.powerbi.com/view?r=eyJrIjoiMzYxMjkyN2UtYzBjNS00MWE4LWEwMGQtMWU4YzdkMWQ2NjFhIiwidCI6IjQ2NTRiNmYxLTBlNDctNDU3OS1hOGExLTAyZmU5ZDk0M2M3YiIsImMiOjl9",
+    links: [
+      {
+        label: "Interactive Power BI Report",
+        url: "https://app.powerbi.com/view?r=eyJrIjoiMzYxMjkyN2UtYzBjNS00MWE4LWEwMGQtMWU4YzdkMWQ2NjFhIiwidCI6IjQ2NTRiNmYxLTBlNDctNDU3OS1hOGExLTAyZmU5ZDk0M2M3YiIsImMiOjl9",
+        primary: true,
+      },
+      { label: "Executive Deck (PDF)", url: "/AI_Support_Economics_Dashboard.pdf" },
+    ],
+    isFlagship: true,
+  },
+  {
+    no: "03",
+    category: "sql",
+    badge: "PostgreSQL Telemetry Engine",
+    sector: "Product Analytics",
+    title: "Product Analytics & User Journey Pathing Engine",
+    org: "PostgreSQL Engine",
+    intro:
+      "End-to-end SQL analytics engine analyzing 334,000+ telemetry events across 6,000 user journeys in PostgreSQL to pinpoint checkout drop-offs, platform disparities, and validate retention habits against planted ground truth.",
+    metrics: [],
+    image: "/projects/sql-analytics.webp",
+    domainUrl: "github.com/paulytics/product-analytics-engine",
+    bullets: [
+      "Chained funnel models and sessionization views tracking multi-touch telemetry",
+      "Friction diagnostics isolating checkout exits and cross-platform conversion variance",
+      "Cohort retention analysis measuring habit formation and long-term user activation",
+    ],
+    tags: ["PostgreSQL", "SQL", "Python", "Product Analytics", "Funnel Analysis"],
+    lead: "PostgreSQL",
+    link: "https://github.com/paulytics/product-analytics-engine",
+    links: [
+      {
+        label: "GitHub Engine & Code",
+        url: "https://github.com/paulytics/product-analytics-engine",
+        primary: true,
+      },
+      { label: "Case Study Deck (PDF)", url: "/Product_Analytics_SQL_Case_Study.pdf" },
+    ],
+    isFlagship: true,
+  },
+  {
+    no: "04",
+    category: "bi",
+    badge: "Retail Intelligence",
     sector: "Retail / Fashion",
     title: "Sales Intelligence Dashboard",
     org: "Vintage Couture",
     intro:
-      "Executive overview and analysis dashboard, showcasing revenue trends, regional performance, and product profitability.",
+      "Executive overview and analysis dashboard, showcasing revenue trends, regional performance, and product profitability across retail footprints.",
+    metrics: [
+      { label: "Scope", value: "Multi-Region" },
+      { label: "Focus", value: "Product Margin" },
+    ],
+    image: "/projects/sales-dashboard.webp",
+    domainUrl: "vintage-couture.bi/overview",
     bullets: [
-      "Revenue & profitability trend analysis",
+      "Revenue & profitability trend analysis with interactive slicers",
       "Regional and state-level performance tracking",
       "Product and customer segment profit distribution",
     ],
-    tags: ["Power BI", "Excel"],
+    tags: ["Power BI", "Excel", "Data Modeling"],
     lead: "Power BI",
     link: "/Sales_Intelligence_Dashboard.pdf",
+    links: [
+      { label: "View Dashboard PDF", url: "/Sales_Intelligence_Dashboard.pdf", primary: true },
+    ],
+    isFlagship: false,
   },
   {
-    no: "02",
+    no: "05",
+    category: "sql",
+    badge: "Epidemiological Analysis",
     sector: "Public Health",
     title: "COVID-19 Data Exploration",
     org: "Public Health",
     intro:
-      "Used SQL to explore global COVID-19 data and identify meaningful trends across infections and vaccination.",
-    bullets: [
-      "CTEs, joins, window functions and aggregations",
-      "Infection-rate analysis across regions",
-      "Vaccination trend exploration",
+      "Explored global COVID-19 datasets in SQL, calculating infection velocity, mortality ratios, and vaccination coverage across territories.",
+    metrics: [
+      { label: "Technique", value: "CTEs & Windows" },
+      { label: "Coverage", value: "Global" },
     ],
-    tags: ["SQL"],
+    bullets: [
+      "Multi-table CTEs, joins, window functions and rolling aggregations",
+      "Infection-rate analysis across regions and demographics",
+      "Vaccination progression and longitudinal tracking",
+    ],
+    tags: ["SQL", "Data Exploration", "Window Functions"],
     lead: "SQL",
+    isFlagship: false,
   },
   {
-    no: "03",
+    no: "06",
+    category: "bi",
+    badge: "Biometrics & Wearables",
     sector: "Health & Fitness",
     title: "Fitness Dataset Analysis",
     org: "Health & Fitness",
     intro:
-      "Cleaned and transformed raw fitness data into meaningful health and activity indicators, then built an interactive reporting dashboard.",
-    bullets: [
-      "Data cleaning and transformation",
-      "BMI and activity performance indicators",
-      "Interactive visualization and reporting",
+      "Cleaned and transformed raw fitness sensor data into actionable health indicators, presenting metrics in an interactive executive dashboard.",
+    metrics: [
+      { label: "Pipeline", value: "ETL & Cleaning" },
+      { label: "Output", value: "Interactive BI" },
     ],
-    tags: ["Power BI", "Excel"],
+    bullets: [
+      "Data cleaning and transformation of raw sensor feeds",
+      "BMI and daily activity performance indicators",
+      "Longitudinal visual reporting and cohort comparisons",
+    ],
+    tags: ["Power BI", "Excel", "ETL"],
     lead: "Power BI",
+    isFlagship: false,
   },
   {
-    no: "04",
+    no: "07",
+    category: "sql",
+    badge: "Modular ML Analytics",
     sector: "Python Analytics",
     title: "Health Metrics Classification System",
     org: "Python Analytics",
     intro:
-      "Built a modular Python system that processes health-related inputs and translates them into structured classifications and visual insights.",
+      "Modular Python data pipeline that processes biometric inputs, executes vectorized Pandas transformations, and categorizes health risk scores.",
+    metrics: [
+      { label: "Stack", value: "Pandas & Python" },
+      { label: "Visuals", value: "Matplotlib" },
+    ],
     bullets: [
-      "Modular Python functions and Pandas pipelines",
-      "Structured data classification",
-      "Distribution analysis with Matplotlib",
+      "Modular Python architecture and automated Pandas ETL",
+      "Multi-variable health scoring and classification algorithms",
+      "Distribution analysis, outlier detection and Matplotlib visuals",
     ],
     tags: ["Python", "Pandas", "Matplotlib"],
     lead: "Python",
+    isFlagship: false,
   },
 ];
 
@@ -105,7 +277,7 @@ const reports = [
     ],
     tags: ["Project Management", "Data Analysis", "Dashboarding"],
     lead: "Project Management",
-    link: "https://dataleum.com/wp-content/uploads/2026/07/Dataleum-Q2-2026-Skit-Makers-Report.pdf"
+    link: "https://dataleum.com/wp-content/uploads/2026/07/Dataleum-Q2-2026-Skit-Makers-Report.pdf",
   },
   {
     no: "02",
@@ -121,7 +293,7 @@ const reports = [
     ],
     tags: ["HR Analytics", "Data Analysis", "Reporting"],
     lead: "Data Analysis",
-    link: "https://dataleum.com/wp-content/uploads/2026/05/HR-Intelligence-Report-May-2026.pdf"
+    link: "https://dataleum.com/wp-content/uploads/2026/05/HR-Intelligence-Report-May-2026.pdf",
   },
   {
     no: "03",
@@ -137,7 +309,7 @@ const reports = [
     ],
     tags: ["Research", "AI Governance", "Strategy"],
     lead: "Research",
-    link: "https://dataleum.com/ai-governance-in-africa-responsible-innovation-and-trillion-dollar-growth/"
+    link: "https://dataleum.com/ai-governance-in-africa-responsible-innovation-and-trillion-dollar-growth/",
   },
   {
     no: "04",
@@ -153,7 +325,7 @@ const reports = [
     ],
     tags: ["Research", "Data Privacy", "Strategy"],
     lead: "Research",
-    link: "https://dataleum.com/how-africa-is-redefining-data-protection-in-2026/"
+    link: "https://dataleum.com/how-africa-is-redefining-data-protection-in-2026/",
   },
   {
     no: "05",
@@ -169,7 +341,7 @@ const reports = [
     ],
     tags: ["Research", "Business Strategy", "AI"],
     lead: "Business Strategy",
-    link: "https://dataleum.com/ai-value-abyss-what-west-african-smes-get-wrong/"
+    link: "https://dataleum.com/ai-value-abyss-what-west-african-smes-get-wrong/",
   },
 ];
 
@@ -238,15 +410,125 @@ const awards = [
 ];
 
 const affiliations = [
-  { name: "ComputeX", role: "Program Coordinator / PM", desc: "Orchestrating technical programs and managing end-to-end project lifecycles to drive impactful tech initiatives." },
-  { name: "FSI (Financial Services Innovators)", role: "Ambassador", desc: "Advocating for financial inclusion and empowering the fintech community through grassroots innovation." },
-  { name: "Polygon Guild", role: "Contributor · Campus Tour", desc: "Driving Web3 education and onboarding the next generation of builders across university campuses." },
-  { name: "HOGGOS", role: "Part-Time Tutor", desc: "Mentoring students and breaking down complex topics to build a strong foundation in core technical subjects." },
-  { name: "Dataleum", role: "Data Analytics Facilitator", desc: "Leading hands-on AI and data analytics sessions to upskill individuals and organizations across different industries, including Access Bank, Myrtle, Dangote, FMN, and One Acre Fund." },
-  { name: "Association of Responsible AI (ARAI)", role: "Subject Matter Expert", desc: "Providing expert guidance on AI governance, ethics, and developing responsible implementation frameworks." },
+  {
+    name: "ComputeX",
+    role: "Program Coordinator / PM",
+    desc: "Orchestrating technical programs and managing end-to-end project lifecycles to drive impactful tech initiatives.",
+  },
+  {
+    name: "FSI (Financial Services Innovators)",
+    role: "Ambassador",
+    desc: "Advocating for financial inclusion and empowering the fintech community through grassroots innovation.",
+  },
+  {
+    name: "Polygon Guild",
+    role: "Contributor · Campus Tour",
+    desc: "Driving Web3 education and onboarding the next generation of builders across university campuses.",
+  },
+  {
+    name: "HOGGOS",
+    role: "Part-Time Tutor",
+    desc: "Mentoring students and breaking down complex topics to build a strong foundation in core technical subjects.",
+  },
+  {
+    name: "Dataleum",
+    role: "Data Analytics Facilitator",
+    desc: "Leading hands-on AI and data analytics sessions to upskill individuals and organizations across different industries, including Access Bank, Myrtle, Dangote, FMN, and One Acre Fund.",
+  },
+  {
+    name: "Association of Responsible AI (ARAI)",
+    role: "Subject Matter Expert",
+    desc: "Providing expert guidance on AI governance, ethics, and developing responsible implementation frameworks.",
+  },
 ];
 
+function ProjectMockupFrame({
+  image,
+  title,
+  domainUrl,
+  link,
+}: {
+  image: string;
+  title: string;
+  domainUrl?: string;
+  link?: string;
+}) {
+  const content = (
+    <div className="group/mockup relative overflow-hidden rounded-2xl border border-ink/15 bg-paper shadow-md transition-all duration-500 hover:border-signal/40 hover:shadow-xl">
+      {/* Sleek browser window chrome */}
+      <div className="flex items-center justify-between border-b border-ink/10 bg-ink/[0.03] px-4 py-2.5">
+        <div className="flex items-center gap-1.5">
+          <span className="size-2 rounded-full bg-ink/25" />
+          <span className="size-2 rounded-full bg-ink/25" />
+          <span className="size-2 rounded-full bg-ink/25" />
+        </div>
+        <div className="flex items-center gap-1.5 rounded-md border border-ink/10 bg-paper/90 px-3 py-1 font-mono text-[10px] text-ink/65 shadow-2xs max-w-[240px] truncate sm:max-w-xs">
+          <Lock className="size-2.5 text-signal/80 shrink-0" />
+          <span className="truncate">{domainUrl || "paulytics.io/view"}</span>
+        </div>
+        <div className="flex items-center text-ink/40 group-hover/mockup:text-signal transition-colors">
+          <ArrowUpRight className="size-3.5 transition-transform duration-300 group-hover/mockup:translate-x-0.5 group-hover/mockup:-translate-y-0.5" />
+        </div>
+      </div>
+
+      {/* Image container with subtle inner shadow & zoom */}
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-ink/5">
+        <img
+          src={image}
+          alt={title}
+          loading="lazy"
+          className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover/mockup:scale-[1.03]"
+        />
+        <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-ink/5" />
+        <div className="absolute inset-0 bg-ink/0 transition-colors duration-300 group-hover/mockup:bg-ink/[0.02]" />
+      </div>
+    </div>
+  );
+
+  if (link) {
+    return (
+      <a
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Open ${title}`}
+        className="block"
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return content;
+}
+
 function Index() {
+  const [projectFilter, setProjectFilter] = useState<string>("all");
+
+  const filterCategories = [
+    { id: "all", label: "All Systems", count: projects.length },
+    {
+      id: "ai",
+      label: "AI & Automation",
+      count: projects.filter((p) => p.category === "ai").length,
+    },
+    {
+      id: "bi",
+      label: "Power BI & Analytics",
+      count: projects.filter((p) => p.category === "bi").length,
+    },
+    {
+      id: "sql",
+      label: "SQL & Telemetry",
+      count: projects.filter((p) => p.category === "sql").length,
+    },
+  ];
+
+  const visibleProjects =
+    projectFilter === "all" ? projects : projects.filter((p) => p.category === projectFilter);
+  const flagshipProjects = visibleProjects.filter((p) => p.isFlagship);
+  const secondaryProjects = visibleProjects.filter((p) => !p.isFlagship);
+
   return (
     <main className="bg-paper text-ink">
       {/* top strip */}
@@ -277,7 +559,7 @@ function Index() {
         <div className="pointer-events-none absolute inset-y-0 left-1/4 w-px bg-line" />
         <div className="pointer-events-none absolute inset-y-0 left-2/4 w-px bg-line" />
         <div className="pointer-events-none absolute inset-y-0 left-3/4 w-px bg-line" />
-        
+
         <HeroScene />
 
         <div className="relative mx-auto grid max-w-[1400px] grid-cols-12 gap-6 px-6 py-20 lg:py-28">
@@ -300,8 +582,8 @@ function Index() {
             <StaggerItem>
               <p className="mt-5 max-w-[56ch] text-pretty font-sans text-[clamp(1.05rem,1.4vw,1.25rem)] leading-relaxed text-paper/70">
                 I work at the intersection of data, technology, strategy and AI — helping
-                organizations turn complex information into clearer insights, better products
-                and smarter decisions.
+                organizations turn complex information into clearer insights, better products and
+                smarter decisions.
               </p>
             </StaggerItem>
             <StaggerItem>
@@ -319,17 +601,15 @@ function Index() {
           <div className="col-span-12 flex flex-col justify-between gap-8 lg:col-span-4 lg:border-l lg:border-line lg:pt-2 lg:pl-8 hero-sidebar">
             <div className="relative overflow-hidden border border-line photo-hover">
               <img
-                src="/paul-photo.jpg"
+                src="/paul-portrait.jpg?v=5"
                 alt="Paul Femi-Adejobi portrait"
-                className="aspect-[4/5] w-full object-cover object-[50%_25%]"
+                className="aspect-[4/5] w-full object-cover object-top"
               />
               <div className="absolute inset-x-0 bottom-0 border-t border-line bg-ink/80 p-3 backdrop-blur-sm">
                 <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-mute">
                   Paul Femi-Adejobi
                 </p>
-                <p className="mt-0.5 font-sans text-xs text-paper/70">
-                  Lagos, Nigeria
-                </p>
+                <p className="mt-0.5 font-sans text-xs text-paper/70">Lagos, Nigeria</p>
               </div>
             </div>
             <div className="space-y-4 border-t border-line pt-6">
@@ -359,125 +639,376 @@ function Index() {
 
       {/* projects */}
       <section className="bg-paper text-ink">
-        <div className="mx-auto max-w-[1400px] px-6 py-20">
-          <div className="mb-10 flex items-end justify-between gap-6">
+        <div className="mx-auto max-w-[1360px] px-6 sm:px-8 lg:px-12 py-20 lg:py-28">
+          {/* Section Header */}
+          <div className="mb-12 flex flex-wrap items-end justify-between gap-6 border-b border-ink/10 pb-8">
             <FadeIn>
-              <h2 className="text-balance font-display text-[clamp(2.5rem,6vw,5rem)] font-medium leading-none tracking-[-0.02em]">
-                Selected work
-              </h2>
-              <p className="mt-4 max-w-[46ch] text-pretty font-sans text-base text-ink/60">
-                Turning data into something people can act on.
+              <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.3em] text-signal font-semibold">
+                Featured Systems &amp; Analytics
               </p>
+              <h2 className="text-balance font-display text-[clamp(2.5rem,6vw,5rem)] font-medium leading-none tracking-[-0.02em]">
+                Selected Work.
+              </h2>
+              <p className="mt-4 max-w-[52ch] text-pretty font-sans text-base text-ink/70">
+                Production-grade AI workflows, executive BI economics, and user journey telemetry
+                engines built for measurable business impact.
+              </p>
+            </FadeIn>
+
+            {/* Category Filter Pills */}
+            <FadeIn direction="right" className="flex flex-wrap items-center gap-2">
+              {filterCategories.map((cat) => {
+                const isActive = projectFilter === cat.id;
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => setProjectFilter(cat.id)}
+                    className={`group relative flex items-center gap-2 rounded-xl px-3.5 py-2 font-mono text-xs uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                      isActive
+                        ? "bg-ink text-paper shadow-sm"
+                        : "border border-ink/15 text-ink/70 hover:border-signal/50 hover:text-ink hover:bg-ink/[0.03]"
+                    }`}
+                  >
+                    <span>{cat.label}</span>
+                    <span
+                      className={`rounded-full px-1.5 py-0.2 text-[10px] font-mono transition-colors ${
+                        isActive
+                          ? "bg-signal text-paper font-semibold"
+                          : "bg-ink/10 text-ink/60 group-hover:bg-signal/20 group-hover:text-signal"
+                      }`}
+                    >
+                      {String(cat.count).padStart(2, "0")}
+                    </span>
+                  </button>
+                );
+              })}
             </FadeIn>
           </div>
 
-          {[
-            { title: "Projects", items: projects },
-            { title: "Reports & Publications", items: reports }
-          ].map((section, idx) => (
-            <div key={section.title} className={idx > 0 ? "mt-24" : "mt-12"}>
-              <div className="mb-8 border-b border-ink/10 pb-4">
-                <h3 className="font-mono text-sm uppercase tracking-[0.2em] text-signal">
-                  {section.title}
-                </h3>
-              </div>
-              <div className="divide-y divide-ink/10 border-y border-ink/10">
-                {section.items.map((p) => (
-                  <FadeIn key={p.no} direction="up" amount={0.1}>
-                    <motion.div 
-                      initial="rest"
-                      whileHover="hover"
-                      whileTap="hover"
-                      animate="rest"
-                      variants={{
-                        rest: { backgroundColor: "transparent", scale: 1 },
-                        hover: { backgroundColor: "color-mix(in oklch, var(--color-ink) 2%, transparent)", scale: 1.01 }
-                      }}
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }} 
-                      className="group relative grid cursor-default grid-cols-12 gap-6 py-8 rounded-2xl px-6 -mx-6 overflow-hidden"
+          {/* Flagship Projects Showcase */}
+          <div className="space-y-12 lg:space-y-16">
+            {flagshipProjects.map((p, idx) => (
+              <FadeIn key={p.no} direction="up" amount={0.1}>
+                <div className="group rounded-3xl border border-ink/12 bg-paper/90 p-6 sm:p-8 lg:p-10 shadow-xs hover:border-signal/30 transition-all duration-300">
+                  <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12">
+                    {/* Mockup Column */}
+                    <div
+                      className={`lg:col-span-7 ${
+                        idx % 2 === 1 ? "order-1 lg:order-2" : "order-1"
+                      }`}
                     >
-                      {/* Watermark Number */}
-                      <motion.div 
-                        variants={{
-                          rest: { opacity: 0, scale: 0.9, x: 40, rotate: -5 },
-                          hover: { opacity: 0.04, scale: 1, x: 0, rotate: 0 }
-                        }}
-                        transition={{ duration: 0.5, ease: "easeOut" }}
-                        className="absolute -right-8 -bottom-16 pointer-events-none font-display font-bold text-[18rem] leading-none text-ink select-none"
-                      >
-                        {p.no}
-                      </motion.div>
+                      {p.image ? (
+                        <ProjectMockupFrame
+                          image={p.image}
+                          title={p.title}
+                          domainUrl={p.domainUrl}
+                          link={p.link}
+                        />
+                      ) : null}
+                    </div>
 
-                      {/* Growing Left Accent */}
-                      <motion.div 
-                        variants={{
-                          rest: { opacity: 0, height: 0, top: "50%" },
-                          hover: { opacity: 1, height: "100%", top: "0%" }
-                        }}
-                        transition={{ duration: 0.3, ease: "anticipate" }}
-                        className="absolute left-0 w-1.5 rounded-r-full bg-signal"
-                      />
+                    {/* Editorial Content Column */}
+                    <div
+                      className={`flex flex-col justify-between space-y-6 lg:col-span-5 ${
+                        idx % 2 === 1 ? "order-2 lg:order-1" : "order-2"
+                      }`}
+                    >
+                      <div>
+                        {/* Metadata strip */}
+                        <div className="flex flex-wrap items-center gap-2.5 font-mono text-xs">
+                          <span className="font-bold text-signal tracking-widest">{p.no}</span>
+                          <span className="text-mute uppercase tracking-widest">{p.sector}</span>
+                          <span className="text-ink/20">·</span>
+                          <span className="inline-flex items-center gap-1.5 rounded-full bg-signal/10 px-2.5 py-0.5 text-[11px] font-medium text-signal">
+                            <span className="size-1.5 rounded-full bg-signal pulse-signal" />
+                            {p.badge}
+                          </span>
+                        </div>
 
-                      <div className="relative z-10 col-span-12 md:col-span-4">
-                        <p className="mb-2 font-mono text-xs uppercase tracking-[0.2em] text-mute transition-colors group-hover:text-signal">
-                          {p.no} — {p.sector}
-                        </p>
-                        
-                        <div className="flex items-start gap-2">
+                        {/* Heading */}
+                        <div className="mt-3">
                           {p.link ? (
-                            <a href={p.link} target="_blank" rel="noopener noreferrer">
-                              <h3 className="font-sans text-2xl font-semibold leading-tight group-hover:text-signal transition-colors">
+                            <a
+                              href={p.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group/title inline-flex items-start gap-2"
+                            >
+                              <h3 className="font-display text-2xl sm:text-3xl font-semibold tracking-tight text-ink transition-colors group-hover/title:text-signal">
                                 {p.title}
                               </h3>
+                              <ArrowUpRight className="size-5 text-signal shrink-0 transition-transform group-hover/title:translate-x-0.5 group-hover/title:-translate-y-0.5 mt-1" />
                             </a>
                           ) : (
-                            <h3 className="font-sans text-2xl font-semibold leading-tight group-hover:text-signal transition-colors">
+                            <h3 className="font-display text-2xl sm:text-3xl font-semibold tracking-tight text-ink">
                               {p.title}
                             </h3>
                           )}
-                          <motion.span 
-                            variants={{
-                              rest: { opacity: 0, x: -10, y: 5 },
-                              hover: { opacity: 1, x: 0, y: 0 }
-                            }}
-                            className="text-signal text-xl leading-none mt-1"
-                          >
-                            {p.link ? '↗' : '→'}
-                          </motion.span>
                         </div>
 
-                        <p className="mt-4 max-w-[40ch] text-pretty font-sans text-sm leading-relaxed text-ink/60 group-hover:text-ink/80 transition-colors">
+                        {/* Concise overview */}
+                        <p className="mt-3 font-sans text-sm sm:text-base leading-relaxed text-ink/75">
                           {p.intro}
                         </p>
                       </div>
-                      <div className="relative z-10 col-span-12 md:col-span-4 md:border-l md:border-ink/10 md:pl-6 group-hover:border-signal/30 transition-colors">
-                        <ul className="space-y-3 font-sans text-sm text-ink/70 group-hover:text-ink/90 transition-colors">
-                          {p.bullets.map((b) => (
-                            <li key={b} className="flex items-start gap-2">
-                              <span className="text-signal/40 group-hover:text-signal transition-colors">▹</span>
-                              <span>{b}</span>
-                            </li>
+
+                      {/* Key highlights / Deliverables */}
+                      <ul className="space-y-2.5 border-t border-ink/10 pt-4 font-sans text-xs sm:text-sm text-ink/80">
+                        {p.bullets.slice(0, 3).map((b) => (
+                          <li key={b} className="flex items-start gap-2.5">
+                            <span className="mt-0.5 shrink-0 font-mono text-xs text-signal">▹</span>
+                            <span>{b}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      {/* Tech pills & Action CTAs */}
+                      <div className="space-y-4 pt-1">
+                        <div className="flex flex-wrap gap-1.5">
+                          {p.tags.map((t) => (
+                            <span
+                              key={t}
+                              className={`rounded-lg px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider ring-1 transition-colors ${
+                                t === p.lead
+                                  ? "text-signal ring-signal/30 bg-signal/10 font-medium"
+                                  : "ring-ink/15 text-ink/70 bg-ink/[0.03]"
+                              }`}
+                            >
+                              {t}
+                            </span>
                           ))}
-                        </ul>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-3 pt-1">
+                          {p.links?.map((l) => (
+                            <a
+                              key={l.label}
+                              href={l.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`inline-flex items-center gap-2 rounded-xl px-4 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
+                                l.primary
+                                  ? "bg-signal text-paper shadow-sm hover:bg-signal/90 hover:scale-[1.02]"
+                                  : "border border-ink/20 bg-paper text-ink hover:border-signal/50 hover:bg-ink/[0.04]"
+                              }`}
+                            >
+                              <span>{l.label}</span>
+                              <ArrowUpRight className="size-3.5" />
+                            </a>
+                          ))}
+                        </div>
                       </div>
-                      <div className="relative z-10 col-span-12 flex flex-wrap gap-2 md:col-span-4 md:justify-end self-start">
+                    </div>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+
+          {/* Secondary Spotlight Projects */}
+          {secondaryProjects.length > 0 && (
+            <div className="mt-14">
+              <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-ink/10 pb-3">
+                <h3 className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-signal">
+                  Specialized Analytics &amp; Explorations
+                </h3>
+                <span className="font-mono text-xs text-mute">
+                  0{secondaryProjects.length} additional project
+                  {secondaryProjects.length > 1 ? "s" : ""}
+                </span>
+              </div>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                {secondaryProjects.map((p) => (
+                  <SpotlightCard
+                    key={p.no}
+                    className="flex flex-col justify-between border-ink/15 bg-paper/90 p-6 hover:border-signal/40 shadow-2xs"
+                  >
+                    <div>
+                      {p.image && (
+                        <div className="mb-4 overflow-hidden rounded-xl border border-ink/10 aspect-[16/9] bg-ink/5">
+                          <img
+                            src={p.image}
+                            alt={p.title}
+                            loading="lazy"
+                            className="h-full w-full object-cover object-top transition-transform duration-500 hover:scale-105"
+                          />
+                        </div>
+                      )}
+                      <div className="mb-3 flex items-center justify-between text-xs font-mono text-mute">
+                        <span className="font-semibold text-signal tracking-widest">
+                          {p.no} — {p.sector}
+                        </span>
+                        <span className="rounded bg-ink/5 px-2 py-0.5 text-[10px] uppercase tracking-wider">
+                          {p.badge}
+                        </span>
+                      </div>
+                      <h4 className="font-display text-2xl font-semibold text-ink group-hover:text-signal transition-colors">
+                        {p.title}
+                      </h4>
+                      <p className="mt-2.5 text-sm font-sans leading-relaxed text-ink/70">
+                        {p.intro}
+                      </p>
+                      <ul className="mt-4 space-y-1.5 border-t border-ink/10 pt-3 font-sans text-xs text-ink/75">
+                        {p.bullets.map((b) => (
+                          <li key={b} className="flex items-start gap-2">
+                            <span className="font-mono text-signal/70">▹</span>
+                            <span>{b}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-ink/10 pt-4">
+                      <div className="flex flex-wrap gap-1.5">
                         {p.tags.map((t) => (
                           <span
                             key={t}
-                            className={`rounded-[min(1vw,8px)] px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider ring-1 transition-colors ${
-                              t === p.lead ? "text-signal ring-signal/40 bg-signal/10 group-hover:bg-signal group-hover:text-paper" : "ring-ink/20 text-ink bg-ink/5 group-hover:bg-ink/10"
+                            className={`rounded px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider ring-1 ${
+                              t === p.lead
+                                ? "text-signal ring-signal/30 bg-signal/10 font-medium"
+                                : "ring-ink/15 text-ink/60"
                             }`}
                           >
                             {t}
                           </span>
                         ))}
                       </div>
-                    </motion.div>
-                  </FadeIn>
+                      {p.links?.map((l) => (
+                        <a
+                          key={l.label}
+                          href={l.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 font-mono text-xs font-semibold uppercase tracking-wider text-signal hover:underline"
+                        >
+                          <span>{l.label}</span>
+                          <ArrowUpRight className="size-3" />
+                        </a>
+                      ))}
+                    </div>
+                  </SpotlightCard>
                 ))}
               </div>
             </div>
-          ))}
+          )}
+
+          {/* Reports & Publications */}
+          <div className="mt-28">
+            <div className="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-ink/10 pb-4">
+              <div>
+                <h3 className="font-mono text-sm uppercase tracking-[0.2em] text-signal font-semibold">
+                  Reports &amp; Publications
+                </h3>
+                <p className="mt-1 font-sans text-sm text-ink/65">
+                  Industry intelligence reports, policy whitepapers and ecosystem research.
+                </p>
+              </div>
+              <span className="font-mono text-xs uppercase tracking-[0.15em] text-mute">
+                05 Publications
+              </span>
+            </div>
+            <div className="divide-y divide-ink/10 border-y border-ink/10">
+              {reports.map((r) => (
+                <FadeIn key={r.no} direction="up" amount={0.1}>
+                  <motion.div
+                    initial="rest"
+                    whileHover="hover"
+                    whileTap="hover"
+                    animate="rest"
+                    variants={{
+                      rest: { backgroundColor: "transparent", scale: 1 },
+                      hover: {
+                        backgroundColor: "color-mix(in oklch, var(--color-ink) 2%, transparent)",
+                        scale: 1.01,
+                      },
+                    }}
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    className="group relative -mx-6 grid cursor-default grid-cols-12 gap-6 overflow-hidden rounded-2xl px-6 py-8"
+                  >
+                    {/* Watermark Number */}
+                    <motion.div
+                      variants={{
+                        rest: { opacity: 0, scale: 0.9, x: 40, rotate: -5 },
+                        hover: { opacity: 0.04, scale: 1, x: 0, rotate: 0 },
+                      }}
+                      transition={{ duration: 0.5, ease: "easeOut" }}
+                      className="pointer-events-none absolute -bottom-16 -right-8 select-none font-display text-[18rem] font-bold leading-none text-ink"
+                    >
+                      {r.no}
+                    </motion.div>
+
+                    {/* Growing Left Accent */}
+                    <motion.div
+                      variants={{
+                        rest: { opacity: 0, height: 0, top: "50%" },
+                        hover: { opacity: 1, height: "100%", top: "0%" },
+                      }}
+                      transition={{ duration: 0.3, ease: "anticipate" }}
+                      className="absolute left-0 w-1.5 rounded-r-full bg-signal"
+                    />
+
+                    <div className="relative z-10 col-span-12 md:col-span-4">
+                      <p className="mb-2 font-mono text-xs uppercase tracking-[0.2em] text-mute transition-colors group-hover:text-signal">
+                        {r.no} — {r.sector}
+                      </p>
+
+                      <div className="flex items-start gap-2">
+                        {r.link ? (
+                          <a href={r.link} target="_blank" rel="noopener noreferrer">
+                            <h3 className="font-sans text-2xl font-semibold leading-tight transition-colors group-hover:text-signal">
+                              {r.title}
+                            </h3>
+                          </a>
+                        ) : (
+                          <h3 className="font-sans text-2xl font-semibold leading-tight transition-colors group-hover:text-signal">
+                            {r.title}
+                          </h3>
+                        )}
+                        <motion.span
+                          variants={{
+                            rest: { opacity: 0, x: -10, y: 5 },
+                            hover: { opacity: 1, x: 0, y: 0 },
+                          }}
+                          className="mt-1 text-xl leading-none text-signal"
+                        >
+                          {r.link ? "↗" : "→"}
+                        </motion.span>
+                      </div>
+
+                      <p className="mt-4 max-w-[40ch] text-pretty font-sans text-sm leading-relaxed text-ink/60 transition-colors group-hover:text-ink/80">
+                        {r.intro}
+                      </p>
+                    </div>
+                    <div className="relative z-10 col-span-12 transition-colors md:col-span-4 md:border-l md:border-ink/10 md:pl-6 group-hover:border-signal/30">
+                      <ul className="space-y-3 font-sans text-sm text-ink/70 transition-colors group-hover:text-ink/90">
+                        {r.bullets.map((b) => (
+                          <li key={b} className="flex items-start gap-2">
+                            <span className="text-signal/40 transition-colors group-hover:text-signal">
+                              ▹
+                            </span>
+                            <span>{b}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="relative z-10 col-span-12 flex self-start flex-wrap gap-2 md:col-span-4 md:justify-end">
+                      {r.tags.map((t) => (
+                        <span
+                          key={t}
+                          className={`rounded-[min(1vw,8px)] px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider ring-1 transition-colors ${
+                            t === r.lead
+                              ? "bg-signal/10 text-signal ring-signal/40 group-hover:bg-signal group-hover:text-paper"
+                              : "bg-ink/5 text-ink ring-ink/20 group-hover:bg-ink/10"
+                          }`}
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </motion.div>
+                </FadeIn>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -495,7 +1026,7 @@ function Index() {
               Four disciplines. One goal: better decisions.
             </p>
           </FadeIn>
-          
+
           <div className="col-span-12 lg:col-span-6 lg:col-start-7 mt-8 lg:mt-0">
             <StaggerList className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
               <StaggerItem>
@@ -518,8 +1049,8 @@ function Index() {
                     Strategy &amp; research
                   </p>
                   <p className="mb-4 font-sans text-sm leading-relaxed text-paper/70 flex-grow">
-                    Breaking down complex questions, researching markets and turning evidence
-                    into strategic recommendations.
+                    Breaking down complex questions, researching markets and turning evidence into
+                    strategic recommendations.
                   </p>
                   <p className="font-sans text-[13px] text-paper/90 border-t border-white/10 pt-4 mt-auto">
                     Business Analysis · Market Research · Financial Modelling · Competitive Analysis
@@ -561,7 +1092,6 @@ function Index() {
       {/* track record */}
       <TrackRecord roles={roles} />
 
-
       {/* certs + awards */}
       <section className="bg-ink text-paper overflow-hidden">
         <div className="mx-auto max-w-[1400px] px-6 py-20">
@@ -578,15 +1108,19 @@ function Index() {
                   <StaggerItem key={c}>
                     <motion.span
                       className="inline-block rounded-[min(1vw,8px)] px-3 py-2 font-mono text-xs ring-1 ring-paper/15 cert-shimmer cursor-default select-none"
-                      whileHover={{ 
-                        scale: 1.08, 
-                        backgroundColor: "color-mix(in oklch, var(--color-signal) 15%, transparent)",
-                        boxShadow: "0 0 20px color-mix(in oklch, var(--color-signal) 25%, transparent)"
+                      whileHover={{
+                        scale: 1.08,
+                        backgroundColor:
+                          "color-mix(in oklch, var(--color-signal) 15%, transparent)",
+                        boxShadow:
+                          "0 0 20px color-mix(in oklch, var(--color-signal) 25%, transparent)",
                       }}
-                      whileTap={{ 
-                        scale: 1.08, 
-                        backgroundColor: "color-mix(in oklch, var(--color-signal) 15%, transparent)",
-                        boxShadow: "0 0 20px color-mix(in oklch, var(--color-signal) 25%, transparent)"
+                      whileTap={{
+                        scale: 1.08,
+                        backgroundColor:
+                          "color-mix(in oklch, var(--color-signal) 15%, transparent)",
+                        boxShadow:
+                          "0 0 20px color-mix(in oklch, var(--color-signal) 25%, transparent)",
                       }}
                       transition={{ type: "spring", stiffness: 400, damping: 20 }}
                     >
@@ -608,7 +1142,7 @@ function Index() {
               <StaggerList className="space-y-3">
                 {awards.map((a, i) => (
                   <StaggerItem key={a.name}>
-                    <motion.div 
+                    <motion.div
                       className="group/award relative flex items-start gap-4 rounded-xl p-4 cursor-default overflow-hidden transition-colors hover:bg-paper/5"
                       initial="rest"
                       whileHover="hover"
@@ -620,14 +1154,14 @@ function Index() {
                         className="relative shrink-0 flex items-center justify-center size-10 rounded-full border border-paper/15 font-mono text-xs text-paper/50"
                         variants={{
                           rest: { borderColor: "rgba(255,255,255,0.15)", scale: 1 },
-                          hover: { borderColor: "var(--color-signal)", scale: 1.1 }
+                          hover: { borderColor: "var(--color-signal)", scale: 1.1 },
                         }}
                         transition={{ type: "spring", stiffness: 400, damping: 20 }}
                       >
                         <motion.span
                           variants={{
                             rest: { color: "rgba(255,255,255,0.5)" },
-                            hover: { color: "var(--color-signal)" }
+                            hover: { color: "var(--color-signal)" },
                           }}
                         >
                           {String(i + 1).padStart(2, "0")}
@@ -637,33 +1171,36 @@ function Index() {
                           className="absolute inset-0 rounded-full bg-signal/0 blur-md"
                           variants={{
                             rest: { opacity: 0 },
-                            hover: { opacity: 0.3, backgroundColor: "var(--color-signal)" }
+                            hover: { opacity: 0.3, backgroundColor: "var(--color-signal)" },
                           }}
                         />
                       </motion.div>
 
                       <div className="flex-1 min-w-0">
-                        <motion.p 
+                        <motion.p
                           className="font-sans text-[15px] font-medium leading-snug"
                           variants={{
                             rest: { color: "var(--color-paper)" },
-                            hover: { color: "var(--color-signal)" }
+                            hover: { color: "var(--color-signal)" },
                           }}
                           transition={{ duration: 0.25 }}
                         >
                           {a.name}
                         </motion.p>
-                        <motion.span 
+                        <motion.span
                           className="mt-1 inline-block font-mono text-[10px] uppercase tracking-[0.2em] rounded-full px-2 py-0.5"
                           variants={{
                             rest: { opacity: 0.4, backgroundColor: "transparent" },
-                            hover: { opacity: 1, backgroundColor: "color-mix(in oklch, var(--color-signal) 15%, transparent)" }
+                            hover: {
+                              opacity: 1,
+                              backgroundColor:
+                                "color-mix(in oklch, var(--color-signal) 15%, transparent)",
+                            },
                           }}
                         >
                           {a.year}
                         </motion.span>
                       </div>
-
                     </motion.div>
                   </StaggerItem>
                 ))}
@@ -713,9 +1250,7 @@ function Index() {
           </FadeIn>
           <StaggerList className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {affiliations.map((a) => (
-              <StaggerItem
-                key={a.name}
-              >
+              <StaggerItem key={a.name}>
                 <motion.div
                   initial="rest"
                   whileHover="hover"
@@ -729,17 +1264,19 @@ function Index() {
                     style={{ transformStyle: "preserve-3d" }}
                     variants={{
                       rest: { rotateY: 0 },
-                      hover: { rotateY: 180 }
+                      hover: { rotateY: 180 },
                     }}
                     transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
                   >
                     {/* Front */}
-                    <div 
+                    <div
                       className="absolute inset-0 flex flex-col justify-between overflow-hidden rounded-xl border border-ink/10 bg-paper p-6"
                       style={{ backfaceVisibility: "hidden" }}
                     >
                       <div className="flex justify-between items-start gap-4">
-                        <span className="font-sans text-lg font-semibold tracking-[-0.01em] text-ink">{a.name}</span>
+                        <span className="font-sans text-lg font-semibold tracking-[-0.01em] text-ink">
+                          {a.name}
+                        </span>
                         <span className="text-signal text-xl leading-none opacity-0 group-hover:opacity-100 transition-opacity">
                           ↗
                         </span>
@@ -750,15 +1287,18 @@ function Index() {
                     </div>
 
                     {/* Back */}
-                    <div 
+                    <div
                       className="absolute inset-0 flex flex-col justify-center overflow-hidden rounded-xl border border-signal/30 p-6"
-                      style={{ 
-                        backfaceVisibility: "hidden", 
+                      style={{
+                        backfaceVisibility: "hidden",
                         transform: "rotateY(180deg)",
-                        backgroundColor: "color-mix(in oklch, var(--color-signal) 4%, var(--color-paper))"
+                        backgroundColor:
+                          "color-mix(in oklch, var(--color-signal) 4%, var(--color-paper))",
                       }}
                     >
-                      <span className="font-sans text-[13px] leading-relaxed text-ink/90 relative z-10">{a.desc}</span>
+                      <span className="font-sans text-[13px] leading-relaxed text-ink/90 relative z-10">
+                        {a.desc}
+                      </span>
                       <div className="absolute -left-10 -top-10 h-32 w-32 rounded-full bg-signal/20 blur-2xl pointer-events-none" />
                     </div>
                   </motion.div>
@@ -772,12 +1312,12 @@ function Index() {
       {/* contact */}
       <section className="bg-signal text-ink relative overflow-hidden">
         {/* Animated background circles */}
-        <motion.div 
+        <motion.div
           className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-ink/5 blur-3xl"
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         />
-        <motion.div 
+        <motion.div
           className="pointer-events-none absolute -right-24 -bottom-24 h-80 w-80 rounded-full bg-paper/10 blur-3xl"
           animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.5, 0.2] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
@@ -790,8 +1330,8 @@ function Index() {
               Let's turn data into decisions.
             </h2>
             <p className="mt-6 max-w-[52ch] text-pretty font-sans text-lg text-ink/75">
-              Have a business problem, data challenge, AI opportunity or technology idea?
-              Let's talk.
+              Have a business problem, data challenge, AI opportunity or technology idea? Let's
+              talk.
             </p>
           </FadeIn>
           <StaggerList className="mt-12 flex flex-col gap-6 md:flex-row md:flex-wrap md:justify-between md:items-center">
