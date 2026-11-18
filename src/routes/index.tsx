@@ -228,6 +228,30 @@ const projects: ProjectItem[] = [
   },
   {
     no: "06",
+    category: "bi",
+    badge: "Biometrics & Wearables",
+    sector: "Health & Fitness Telemetry",
+    title: "Fitness Workout Analytics — Optimizing Exercise Performance",
+    org: "30-Day Cohort Study",
+    intro:
+      "Comprehensive analysis of 150 workout sessions, biometric telemetry, and facility utilization across 5 demographic cohorts, translating raw sensor streams into 6 actionable operational decisions.",
+    metrics: [
+      { label: "Cohort", value: "150 Workouts" },
+      { label: "Expended", value: "70,000+ Cal" },
+    ],
+    image: "/projects/fitness-analytics.webp",
+    bullets: [
+      "6-stage data science pipeline: multi-channel ingestion (wearables, IoT, logs), ETL deduplication, and physiological bounds checking",
+      "Power BI executive suite with caloric trend curves, heart rate zone intensity profiles, and cross-attribute slicers",
+      "Actionable discoveries: HIIT achieves 162 bpm peak intensity; cardio delivers 12 cal/min; 50-minute blocks optimize burn vs exertion",
+    ],
+    tags: ["Power BI", "Excel", "Data Pipeline", "IoT Telemetry", "Health Analytics"],
+    lead: "Power BI",
+    links: [{ label: "View Executive Presentation (PDF)", url: "/Fitness_Workout_Analytics.pdf", primary: true }],
+    isFlagship: false,
+  },
+  {
+    no: "07",
     category: "sql",
     badge: "Epidemiological Analysis",
     sector: "Public Health",
@@ -246,29 +270,6 @@ const projects: ProjectItem[] = [
     ],
     tags: ["SQL", "Data Exploration", "Window Functions"],
     lead: "SQL",
-    isFlagship: false,
-  },
-  {
-    no: "07",
-    category: "bi",
-    badge: "Biometrics & Wearables",
-    sector: "Health & Fitness",
-    title: "Fitness Workout Analytics — Optimizing Exercise Performance",
-    org: "Health & Fitness",
-    intro:
-      "A data-driven analysis of fitness and workout data, transforming raw biometric and exercise logs into actionable performance insights through ETL, visual analytics, and cohort reporting.",
-    metrics: [
-      { label: "Pipeline", value: "ETL & Cleaning" },
-      { label: "Output", value: "Interactive BI" },
-    ],
-    bullets: [
-      "End-to-end data cleaning and transformation of raw fitness and sensor feeds",
-      "BMI, calorie burn, and daily activity performance indicators with benchmarking",
-      "Longitudinal visual reporting and cohort comparisons for exercise optimization",
-    ],
-    tags: ["Power BI", "Excel", "ETL", "Fitness Analytics"],
-    lead: "Power BI",
-    links: [{ label: "View Presentation Deck", url: "/Fitness_Workout_Analytics.pdf", primary: true }],
     isFlagship: false,
   },
   {
