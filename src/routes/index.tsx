@@ -149,7 +149,7 @@ const projects: ProjectItem[] = [
       { label: "Tool", value: "Tableau" },
       { label: "Scope", value: "Global Dataset" },
     ],
-    image: "/projects/tableau-global.webp",
+    image: "/projects/tableau-global.webp?v=2",
     domainUrl: "public.tableau.com",
     bullets: [
       "Multi-KPI development index explorer with country and year filtering",
@@ -296,6 +296,32 @@ const projects: ProjectItem[] = [
   {
     no: "09",
     category: "product",
+    badge: "AI Exam Simulation Engine",
+    sector: "EdTech · AI Products",
+    title: "CertliAI — AI-Powered Certification Exam Platform",
+    org: "Dataleum",
+    intro:
+      "Full-length, timed mock exams that mirror real certification testing. Built with auto-save, proctoring, and instant diagnostics — all in one platform.",
+    metrics: [
+      { label: "Type", value: "Live Product" },
+      { label: "Domain", value: "EdTech / AI" },
+    ],
+    image: "/projects/certliai.webp",
+    domainUrl: "certliai.dataleum.com",
+    bullets: [
+      "Exam simulation engine with full-length timed mock exams and real test mirroring",
+      "Auto-save, proctoring, and instant diagnostic feedback built into the platform",
+      "Built and shipped end-to-end as a live product under Dataleum",
+    ],
+    tags: ["Product Development", "AI", "EdTech", "SaaS"],
+    lead: "Product Development",
+    link: "https://certliai.dataleum.com/",
+    links: [{ label: "View Live Product", url: "https://certliai.dataleum.com/", primary: true }],
+    isFlagship: false,
+  },
+  {
+    no: "10",
+    category: "product",
     badge: "AI Language Learning App",
     sector: "EdTech · African Languages",
     title: "HeritageVoice — Speak Nigerian Languages with Confidence",
@@ -317,38 +343,6 @@ const projects: ProjectItem[] = [
     lead: "Product Development",
     link: "https://heritagevoice.vercel.app",
     links: [{ label: "View Live App", url: "https://heritagevoice.vercel.app", primary: true }],
-    isFlagship: false,
-  },
-  {
-    no: "10",
-    category: "bi",
-    badge: "Tableau · Data Visualization",
-    sector: "Public Data & Development",
-    title: "Global Development at a Glance",
-    org: "Tableau Public",
-    intro:
-      "Interactive Tableau dashboard visualizing global development indicators — GDP, education, health, and social progress — across countries and time periods.",
-    metrics: [
-      { label: "Tool", value: "Tableau" },
-      { label: "Scope", value: "Global Dataset" },
-    ],
-    image: "/projects/tableau-global.webp",
-    domainUrl: "public.tableau.com",
-    bullets: [
-      "Multi-KPI development index explorer with country and year filtering",
-      "Cross-dimensional storytelling linking economic, health, and social outcomes",
-      "Published on Tableau Public for open access and sharing",
-    ],
-    tags: ["Tableau", "Data Visualization", "Public Data", "Storytelling"],
-    lead: "Tableau",
-    link: "https://public.tableau.com/app/profile/paul.femi.adejobi/viz/GlobalDevelopmentataGlance/GlobalDevelopmentataGlance?publish=yes",
-    links: [
-      {
-        label: "View Tableau Dashboard",
-        url: "https://public.tableau.com/app/profile/paul.femi.adejobi/viz/GlobalDevelopmentataGlance/GlobalDevelopmentataGlance?publish=yes",
-        primary: true,
-      },
-    ],
     isFlagship: false,
   },
 ];
