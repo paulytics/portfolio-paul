@@ -239,7 +239,7 @@ const projects: ProjectItem[] = [
       { label: "Cohort", value: "150 Workouts" },
       { label: "Expended", value: "70,000+ Cal" },
     ],
-    image: "/projects/fitness-analytics.webp",
+    image: "/projects/fitness-analytics.webp?v=2",
     bullets: [
       "6-stage data science pipeline: multi-channel ingestion (wearables, IoT, logs), ETL deduplication, and physiological bounds checking",
       "Power BI executive suite with caloric trend curves, heart rate zone intensity profiles, and cross-attribute slicers",
